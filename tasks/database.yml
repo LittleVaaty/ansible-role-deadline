@@ -57,6 +57,21 @@
     group: mongod
   delegate_to: "{{ deadline_dbhost }}"
 
+- name: SELinux
+  sefcontext:
+    target: '{{ deadline_db_path }}'
+    setype: mongod_var_lib_t
+    state: present
+  delegate_to: "{{ deadline_dbhost }}"
+
+- name: Apply new SELinux file context to filesystem
+  ansible.builtin.command: 'chcon -Rv -u system_u -t mongod_var_lib_t {{ deadline_db_path }}'
+  delegate_to: "{{ deadline_dbhost }}"
+
+- name: Apply new SELinux file context to filesystem
+  ansible.builtin.command: 'restorecon -R -v {{ deadline_db_path }}'
+  delegate_to: "{{ deadline_dbhost }}"
+
 - name: Enable and start mongod
   service:
     name: 'mongod'
