@@ -33,3 +33,6 @@
   when: not stat_deadline.stat.exists or deadline_force_install
 
 - include_tasks: configuration.yml
+
+- include_tasks: samba_server.yml
+  when: deadline_samba_server
