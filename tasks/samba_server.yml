@@ -1,0 +1,26 @@
+---
+- name: Ensure Samba-related packages are installed (RedHat).
+  package:
+    name:
+      - samba
+      - samba-client
+      - samba-common
+      - cifs-utils
+    state: present
+  when: ansible_os_family == 'RedHat'
+
+- name: Copy samba config
+  template:
+    src: 'smb.conf.j2'
+    dest: '/etc/samba/smb.conf'
+    mode: '0744'
+    
+- name: chcon
+  command: chcon -Rt samba_share_t {{ deadline_path }}
+  when: ansible_os_family == 'RedHat'
+
+- name: enable and start service
+  service:
+    name: smb
+    enabled: true
+    state: started

@@ -24,3 +24,4 @@ deadline_certs_client: "deadline_client"
 deadline_server_hostname: "super-server"
 python_interpreter: "python3"
 deadline_mongo_version: 3.6
+deadline_samba_server: true
