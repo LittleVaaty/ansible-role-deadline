@@ -4,7 +4,6 @@ deadline_force_install: false
 # Path where deadline is installed
 deadline_path: "/srv/samba/shared"
 deadline_db_logpath: "/var/log/mongodb/mongod.log"
-deadline_db_path: "/opt/mongo"
 deadline_db_bindip: "0.0.0.0"
 deadline_dbhost: '{{ ansible_facts["eth0"]["ipv4"]["address"] }}'
 deadline_dbport: 2017
